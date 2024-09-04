@@ -74,21 +74,32 @@ const students = [
 let messageLogs = [];
 
 // Firebase configuration
+// Replace this object with your new credentials for each section
 const firebaseConfig = {
-  apiKey: "AIzaSyBRp7Gv6rw32zakHZZFQ-zxm-ndKL49sh8",
-  authDomain: "studentconnect-6f32b.firebaseapp.com",
-  databaseURL: "https://studentconnect-6f32b-default-rtdb.firebaseio.com",
-  projectId: "studentconnect-6f32b",
-  storageBucket: "studentconnect-6f32b.appspot.com",
-  messagingSenderId: "520897019550",
-  appId: "1:520897019550:web:fb7365a6ca17d30913858f"
+  apiKey: "AIzaSyClSmunlhHoKCk9rXvuC7QETpl0RlRBCXI",
+  authDomain: "abbas-sir-ece4.firebaseapp.com",
+  projectId: "abbas-sir-ece4",
+  storageBucket: "abbas-sir-ece4.appspot.com",
+  messagingSenderId: "219773727362",
+  appId: "1:219773727362:web:9396a19e23c292f47fba9b"
 };
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
 
-// Get a reference to the database service
-const database = firebase.database();
+// Initialize Firebase
+let app;
+let database;
+
+function initializeFirebase() {
+  try {
+    app = firebase.initializeApp(firebaseConfig);
+    database = firebase.database();
+    console.log("Firebase initialized successfully");
+    // After successful initialization, run the test
+    testFirebase();
+  } catch (error) {
+    console.error("Error initializing Firebase:", error);
+  }
+}
 
 // Replace localStorageDatabase with firebaseDatabase
 const firebaseDatabase = {
@@ -127,9 +138,11 @@ const firebaseDatabase = {
 };
 
 document.addEventListener('DOMContentLoaded', function () {
+  console.log("DOM fully loaded");
+  initializeFirebase(); // Initialize Firebase first
+  setupEventListeners();
   fetchMessagesFromServer();
   periodicCleanup();
-  setupEventListeners();
 });
 
 function fetchMessagesFromServer() {
@@ -149,29 +162,60 @@ function periodicCleanup() {
 
 function setupEventListeners() {
   const searchBtn = document.getElementById('searchBtn');
-  if (searchBtn) searchBtn.addEventListener('click', toggleSearch);
+  if (searchBtn) {
+    console.log("Search button found");
+    searchBtn.addEventListener('click', toggleSearch);
+  } else {
+    console.log("Search button not found");
+  }
 
   const whatsappParentBtn = document.getElementById('whatsappParentBtn');
   if (whatsappParentBtn) {
+    console.log("WhatsApp Parent button found");
     whatsappParentBtn.addEventListener('click', toggleWhatsAppParent);
+  } else {
+    console.log("WhatsApp Parent button not found");
   }
 
   const sendCustomMessageBtn = document.getElementById('sendCustomMessageBtn');
   if (sendCustomMessageBtn) {
+    console.log("Send Custom Message button found");
     sendCustomMessageBtn.addEventListener('click', sendCustomWhatsAppMessage);
+  } else {
+    console.log("Send Custom Message button not found");
   }
 
   const printBtn = document.getElementById('printBtn');
-  if (printBtn) printBtn.addEventListener('click', openPrintModal);
+  if (printBtn) {
+    console.log("Print button found");
+    printBtn.addEventListener('click', openPrintModal);
+  } else {
+    console.log("Print button not found");
+  }
 
   const closeModalBtn = document.getElementById('closeModal');
-  if (closeModalBtn) closeModalBtn.addEventListener('click', closePrintModal);
+  if (closeModalBtn) {
+    console.log("Close Modal button found");
+    closeModalBtn.addEventListener('click', closePrintModal);
+  } else {
+    console.log("Close Modal button not found");
+  }
 
   const printPreviewBtn = document.getElementById('printPreviewBtn');
-  if (printPreviewBtn) printPreviewBtn.addEventListener('click', showPrintPreview);
+  if (printPreviewBtn) {
+    console.log("Print Preview button found");
+    printPreviewBtn.addEventListener('click', showPrintPreview);
+  } else {
+    console.log("Print Preview button not found");
+  }
 
   const clearLogsBtn = document.getElementById('clearLogsBtn');
-  if (clearLogsBtn) clearLogsBtn.addEventListener('click', clearAllLogs);
+  if (clearLogsBtn) {
+    console.log("Clear Logs button found");
+    clearLogsBtn.addEventListener('click', clearAllLogs);
+  } else {
+    console.log("Clear Logs button not found");
+  }
 
   // Initialize date inputs with current date range
   const today = new Date();
@@ -179,21 +223,51 @@ function setupEventListeners() {
 
   const startDateInput = document.getElementById('startDate');
   const endDateInput = document.getElementById('endDate');
-  if (startDateInput) startDateInput.value = oneMonthAgo.toISOString().split('T')[0];
-  if (endDateInput) endDateInput.value = today.toISOString().split('T')[0];
+  if (startDateInput) {
+    console.log("Start Date input found");
+    startDateInput.value = oneMonthAgo.toISOString().split('T')[0];
+  } else {
+    console.log("Start Date input not found");
+  }
+  if (endDateInput) {
+    console.log("End Date input found");
+    endDateInput.value = today.toISOString().split('T')[0];
+  } else {
+    console.log("End Date input not found");
+  }
 
   const exportLogsBtn = document.getElementById('exportLogsBtn');
-  if (exportLogsBtn) exportLogsBtn.addEventListener('click', exportMessageLogs);
+  if (exportLogsBtn) {
+    console.log("Export Logs button found");
+    exportLogsBtn.addEventListener('click', exportMessageLogs);
+  } else {
+    console.log("Export Logs button not found");
+  }
 
   const studentsBtn = document.getElementById('studentsBtn');
-  if (studentsBtn) studentsBtn.addEventListener('click', openStudentsPage);
+  if (studentsBtn) {
+    console.log("Students button found");
+    studentsBtn.addEventListener('click', openStudentsPage);
+  } else {
+    console.log("Students button not found");
+  }
 
   // Add event listener for the new print button
   const newPrintBtn = document.getElementById('newPrintBtn');
-  if (newPrintBtn) newPrintBtn.addEventListener('click', openPrintModal);
+  if (newPrintBtn) {
+    console.log("New Print button found");
+    newPrintBtn.addEventListener('click', openPrintModal);
+  } else {
+    console.log("New Print button not found");
+  }
 
   const allParentsBtn = document.getElementById('allParentsBtn');
-  if (allParentsBtn) allParentsBtn.addEventListener('click', toggleBulkMessageForm);
+  if (allParentsBtn) {
+    console.log("All Parents button found");
+    allParentsBtn.addEventListener('click', toggleBulkMessageForm);
+  } else {
+    console.log("All Parents button not found");
+  }
 }
 
 function toggleSearch() {
@@ -780,5 +854,23 @@ function sendBulkMessage(group) {
   alert(`Bulk message sent to ${group} group (${parentPhones.length} recipients)`);
 }
 
-// Add this function to add sample data (for testing purposes)
-// document.addEventListener('DOMContentLoaded', addSampleData);
+function testFirebase() {
+  const testRef = database.ref('test');
+  testRef.set({
+    message: "Test message",
+    timestamp: new Date().toISOString()
+  })
+  .then(() => {
+    console.log("Data written successfully");
+    return testRef.once('value');
+  })
+  .then((snapshot) => {
+    console.log("Data read successfully:", snapshot.val());
+  })
+  .catch((error) => {
+    console.error("Firebase operation failed:", error);
+  });
+}
+
+// Call this function after Firebase initialization
+testFirebase();
